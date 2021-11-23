@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-if：当条件为false时，包含v-if的元素根本就不会存在dom中 -->
+    <h2 v-if="isShow">{{message}}</h2>
+    <!-- v-show：当条件为false时，v-show只是给元素添加一个行内样式 dispaly：none -->
+    <h2 v-show="isShow">{{message}}</h2>
+    <!-- 开发中切换频繁使用v-show
+    切换次数少用v-if -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          isShow: true,
+          message: '你好啊'
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

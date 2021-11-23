@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=s, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <cpn :cmoives="moives" :cmessage="message"></cpn>
+  </div>
+  <template id="cpn">
+    <div>
+      <ul>
+        <li v-for="(item, index) in cmoives" :key="item">{{item}}</li>
+      </ul>
+      <h1>{{cmessage}}</h1>
+    </div>
+  </template>
+  <script src=" https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const cpn = {
+      template: '#cpn',
+      // props: ['cmoives', 'cmessage']
+      props: {
+        //1.类型限制
+        // cmoives: Array,
+        // cmessage:(String,Array)
+        //多种可能的类型
+        //2.提供一些默认值
+        cmessage: {
+          type: String,
+          default: 'qqqqqq',
+          required: true
+          //必须传值
+        },
+        cmoives: {
+          type: Array,
+          //类型是对象或数组时，默认值必须是个函数
+          default() {
+            return []
+          }
+        }
+      }
+    }
+
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          message: "你好啊",
+          moives: ['海贼王', '海尔兄弟', '海王']
+        }
+      },
+      components: {
+        cpn
+      },
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in names" :key="index">{{index+1}}.{{item}}</li>
+      <!-- 遍历对象的过程中，如果只获取一个值，那么获取到的就是value -->
+      <li v-for="(item, index) in info" :key="index">{{item}}</li>
+      <!-- 获取key value -->
+      <li v-for="(key, value) in info">{{key}}-{{value}}</li>
+      <!-- 获取key value index -->
+      <li v-for="(key, value,index) in info">{{index}}.{{key}}-{{value}}</li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          names: ['lee', 'kobe', 'james'],
+          info: {
+            name: 'lee',
+            age: 18,
+            height: 188
+          }
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

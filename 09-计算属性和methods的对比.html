@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 1.直接拼接 :语法过于繁琐-->
+    <h2>{{firstName}} {{lastName}}</h2>
+    <!-- 2.通过methods定义 -->
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+    <!-- 3.通过computed -->
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          firstName: 'Kobe',
+          lastName: 'Bryant'
+        }
+      },
+      methods: {
+        getFullName() {
+          console.log('getFullName');
+          return this.firstName + ' ' + this.lastName
+        }
+      },
+      //内部有缓存会监听是否发生变化，若没有发生改变computed将不会重新计算
+      //因此在调用次数多的情况下computed的性能更高
+      computed: {
+        fullName() {
+          console.log('fullName');
+          return this.firstName + ' ' + this.lastName
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in letters" :key="item">{{item}}</li>
+      <!-- key千万不要用index，因为index在插入元素后会变化，达不到一一对应的效果 -->
+      <!-- key要保证唯一性 -->
+      <!-- 加入key之后可以在中间插入元素的时候大大的提升性能，避免元素一个个的位移 -->
+      <!-- key的作用主要是为了高效的更新虚拟dom -->
+    </ul>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          letters: ['A', 'B', 'C', 'D', 'E']
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>
