@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    1.app.message 修改数据 Vue内部是如何监听数据的改名
+    * Object.defineProperty -> 监听对象数据的改变
+
+    2.当数据发生变化时，Vue时如何知道要通知哪些人，页面发生刷新
+    * 发布订阅者模式
+  -->
+  <div id="app">
+    {{message}}
+    {{name}}
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const obj = {
+      message: '哈哈哈',
+      name: 'lee'
+    }
+
+    Object.keys(obj).forEach(key => {
+      let value = obj[key]
+      Object.defineProperty(obj, key, {
+        set(newValue) { //监听设置值
+          //根据解析html代码，获取哪些人有用到属性
+          //用到属性会调用get函数
+          console.log('监听' + key + '的改变');
+          value = newValue
+        },
+        get() { //监听获取值
+          console.log('获取' + key + '对应的值');
+          return value
+        }
+      })
+    })
+    // console.log(Object.keys(obj));
+    //发布者订阅者模式
+    class Dep { //发布者
+      constructor() {
+        this.subs = []
+      }
+      addSub(wather) {
+        this.subs.push(wather)
+      }
+      notify() {
+        this.subs.forEach(item => {
+          item.update()
+        })
+      }
+    }
+    class Watcher { //订阅者
+      constructor(name) {
+        this.name = name
+      }
+      update() {
+        console.log(this.name + '它发生了update');
+      }
+    }
+    const dep = new Dep()
+
+    const w1 = new Watcher('张三')
+    dep.addSub(w1)
+
+    const w2 = new Watcher('李四')
+    dep.addSub(w2)
+
+    const w3 = new Watcher('王五')
+    dep.addSub(w3)
+    dep.notify() //发布者只要调用notify函数就会立马通知所有的订阅者更新
+  </script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          message: '哈哈哈',
+          name: 'lee'
+        }
+      },
+    })
+
+  </script>
+</body>
+
+</html>
